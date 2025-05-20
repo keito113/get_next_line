@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 09:27:01 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/18 14:22:12 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/05/20 13:40:54 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,28 @@ size_t	gnl_strlen(const char *str)
 char	*gnl_strjoin_free(char *store, const char *buf)
 {
 	size_t	len1;
-	size_t	len2;
 	size_t	i;
-	size_t	j;
 	char	*new_str;
 
 	len1 = gnl_strlen(store);
-	len2 = gnl_strlen(buf);
-	if (len1 > SIZE_MAX - len2 - 1)
+	if (len1 > SIZE_MAX - gnl_strlen(buf) - 1)
 		return (free(store), NULL);
-	new_str = malloc(len1 + len2 + 1);
+	new_str = malloc(len1 + gnl_strlen(buf) + 1);
 	if (!new_str)
 		return (free(store), NULL);
 	i = 0;
 	while (i < len1)
-		new_str[i] = store[i++];
-	j = 0;
-	while (j < len2)
-		new_str[i + j] = buf[j++];
-	new_str[i + j] = '\0';
+	{
+		new_str[i] = store[i];
+		i++;
+	}
+	i = 0;
+	while (buf[i])
+	{
+		new_str[len1 + i] = buf[i];
+		i++;
+	}
+	new_str[len1 + i] = '\0';
 	free(store);
 	return (new_str);
 }
@@ -97,7 +100,6 @@ char	*gnl_clip_line(char *store)
 char	*gnl_get_remainder(char *store)
 {
 	ssize_t	idx;
-	size_t	len;
 	size_t	rem_len;
 	size_t	i;
 	char	*clip;
@@ -107,8 +109,7 @@ char	*gnl_get_remainder(char *store)
 	idx = gnl_newline_index(store);
 	if (idx < 0)
 		return (free(store), NULL);
-	len = gnl_strlen(store);
-	rem_len = len - (idx + 1);
+	rem_len = (gnl_strlen(store)) - (idx + 1);
 	if (rem_len == 0)
 		return (free(store), NULL);
 	clip = malloc(rem_len + 1);
@@ -116,7 +117,10 @@ char	*gnl_get_remainder(char *store)
 		return (free(store), NULL);
 	i = 0;
 	while (i < rem_len)
-		clip[i] = store[(idx + 1) + i++];
+	{
+		clip[i] = store[(idx + 1) + i];
+		i++;
+	}
 	clip[rem_len] = '\0';
 	free(store);
 	return (clip);
