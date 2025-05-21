@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 09:27:01 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/20 13:40:54 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/05/21 13:35:19 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*gnl_clip_line(char *store)
 		cpy_len = gnl_strlen(store);
 	clip = malloc(cpy_len + 1);
 	if (!clip)
-		return (free(store), NULL);
+		return (NULL);
 	i = 0;
 	while (i < cpy_len)
 	{
