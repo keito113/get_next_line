@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 09:27:01 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/21 13:35:19 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/05/22 09:52:59 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ size_t	gnl_strlen(const char *str)
 
 char	*gnl_strjoin_free(char *store, const char *buf)
 {
-	size_t	len1;
+	size_t	len;
 	size_t	i;
 	char	*new_str;
 
-	len1 = gnl_strlen(store);
-	if (len1 > SIZE_MAX - gnl_strlen(buf) - 1)
+	len = gnl_strlen(store);
+	if (len > SIZE_MAX - gnl_strlen(buf) - 1)
 		return (free(store), NULL);
-	new_str = malloc(len1 + gnl_strlen(buf) + 1);
+	new_str = malloc(len + gnl_strlen(buf) + 1);
 	if (!new_str)
 		return (free(store), NULL);
 	i = 0;
-	while (i < len1)
+	while (i < len)
 	{
 		new_str[i] = store[i];
 		i++;
@@ -45,10 +45,10 @@ char	*gnl_strjoin_free(char *store, const char *buf)
 	i = 0;
 	while (buf[i])
 	{
-		new_str[len1 + i] = buf[i];
+		new_str[len + i] = buf[i];
 		i++;
 	}
-	new_str[len1 + i] = '\0';
+	new_str[len + i] = '\0';
 	free(store);
 	return (new_str);
 }
