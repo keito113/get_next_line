@@ -6,13 +6,13 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 09:27:01 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/24 15:57:19 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/05/24 18:00:54 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	gnl_strlen(const char *str)
+static size_t	gnl_strlen(const char *str)
 {
 	size_t	i;
 

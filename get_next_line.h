@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 09:27:10 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/22 16:21:09 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/05/24 18:00:59 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 # endif
 
 char	*get_next_line(int fd);
-size_t	gnl_strlen(const char *str);
 char	*gnl_strjoin_free(char *stor, const char *buf);
 ssize_t	gnl_newline_index(const char *stor);
 char	*gnl_clip_line(char *stor);
