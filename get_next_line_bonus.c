@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/17 09:27:06 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/24 17:00:34 by keitabe          ###   ########.fr       */
+/*   Created: 2025/05/24 15:14:24 by keitabe           #+#    #+#             */
+/*   Updated: 2025/05/24 16:15:49 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*gnl_read_loop(int fd, char *store, char *buf)
 {
@@ -55,25 +55,28 @@ static char	*read_or_free(int fd, char *store)
 
 char	*get_next_line(int fd)
 {
-	static char	*store;
+	static char	*store[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		free(store);
-		store = NULL;
+		if (store[fd])
+		{
+			free(store[fd]);
+			store[fd] = NULL;
+		}
 		return (NULL);
 	}
-	store = read_or_free(fd, store);
-	if (!store)
+	store[fd] = read_or_free(fd, store[fd]);
+	if (!store[fd])
 		return (NULL);
-	line = gnl_clip_line(store);
+	line = gnl_clip_line(store[fd]);
 	if (!line)
 	{
-		free(store);
-		store = NULL;
+		free(store[fd]);
+		store[fd] = NULL;
 		return (NULL);
 	}
-	store = gnl_get_remainder(store);
+	store[fd] = gnl_get_remainder(store[fd]);
 	return (line);
 }
