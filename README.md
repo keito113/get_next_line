@@ -15,7 +15,7 @@
     - 組み込みシステムなど OS のバックグラウンドで動かない環境では、リセットや電源断が起こるまでメモリは保持されます。
 
 
-#　実行コマンド
+# 実行コマンド
 ```bash
 ccw -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c main.c -o gnl_test
 ./gnl_test
